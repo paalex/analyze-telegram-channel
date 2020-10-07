@@ -1,26 +1,22 @@
 import express from "express";
-import { botInit } from "./services/telegramService";
+import { run as runTelegram } from "./services/telegramService";
 import {config as dotenv_config} from "dotenv"
-
+import {getPhonesFromMsg} from "./helpers/extractionHelper"
+import _ from 'lodash'
+import messages from './outputs/messages.json';
+import fs from "fs"
 dotenv_config()
 
-const {PORT} = process.env;
-const app = express();
+// runTelegram().catch(e => console.log('init err', e));
 
-botInit(app);
-
-// make all the files in 'public' available
-// https://expressjs.com/en/starter/static-files.html
-// app.use(express.static("public"));
+// const allMessagesWithNumbers = _.map(messages.messages, m => ({
+//   ...m, phones: getPhonesFromMsg(m)
+// }))
 //
-// app.get('/keepalive',(req,res) => {
-//   return res.send('Alive');
-// });
-// https://expressjs.com/en/starter/basic-routing.html
-// app.get("/", (request, response) => {
-//   response.sendFile(__dirname + "/public/index.html");
-// });
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// const onlyMessagesWithNumbers = _.filter(allMessagesWithNumbers, m => m.phones.length > 0)
+// const onlyNumbers = _.flatten(_.map(onlyMessagesWithNumbers, m => m.phones))
+// fs.writeFileSync("outputs/messages_with_numbers.json", JSON.stringify(onlyMessagesWithNumbers, null, 2))
+// fs.writeFileSync("outputs/numbers_only.json", JSON.stringify(onlyNumbers, null, 2))
+// console.log('done')
 
-});
+

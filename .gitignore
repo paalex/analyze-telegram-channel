@@ -108,3 +108,6 @@ dist
 
 # google api
 credentials.json
+
+# outputs
+outputs/
